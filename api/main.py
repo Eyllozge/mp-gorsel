@@ -13,7 +13,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://mptescilgors.vercel.app/"], 
+    allow_origins=["https://mptescilgors.vercel.app"], 
     allow_methods=["POST"],
     allow_headers=["*"],
 )
@@ -22,9 +22,9 @@ class QuizSubmit(BaseModel):
     isim_soyisim: str
 
 
-DATABASE_URL = os.environ.get("Neon_DATABASE_URL")
+DATABASE_URL = os.environ.get("NEON_DATABASE_URL")
 
-@app.post("/api/submit")
+@app.post("/submit")
 def submit(data: QuizSubmit):
     conn = None
     try:
