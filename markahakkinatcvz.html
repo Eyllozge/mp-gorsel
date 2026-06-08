@@ -3,185 +3,220 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Marka Hakkına Tecavüz Quizi — Lawducation</title>
+    <title>Faz Ödevi: Marka Hakkına Tecavüz</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
- 
+
 <div class="container-box">
- 
-    <!-- ── HEADER ── -->
-    <div class="header">
-        <!-- Logo: src'yi kendi logo yolunuzla değiştirin -->
-        <img src="logo.png" alt="Lawducation Logo" class="logo" onerror="this.style.display='none'" />
-        <h1>Marka Hakkına Tecavüz</h1>
-        <p>Her görsel çifti için doğru kararı verin.</p>
-    </div>
- 
-    <!-- ── İLERLEME ── -->
-    <div class="progress-bar-wrap">
-        <div class="progress-bar-fill" id="progressFill"></div>
-    </div>
-    <p class="progress-label" id="progressLabel">Soru 1 / 4</p>
- 
-    <!-- ══════════════════════════════════════════════
-         SORU ALANI
-    ══════════════════════════════════════════════ -->
-    <div id="quizArea" class="question-card">
- 
-        <!-- Soru başlığı -->
-        <p class="question-title" id="questionTitle">
-            Aşağıdaki iki marka karşılaştırıldığında, sağdaki marka soldakinin
-            hakkına <strong>tecavüz ediyor mu?</strong>
-        </p>
- 
-        <!-- Görsel çifti -->
-        <div class="image-pair">
-            <!-- Tescilli Marka -->
-            <div class="brand-card" id="brandLeft">
-                <div class="img-placeholder" id="imgLeftPlaceholder">⚖️</div>
-                <img id="imgLeft" src="images/Mc Döner.jpeg" alt="Tescilli Marka" style="display:none" />
-                <span class="brand-label" id="labelLeft">Tescilli Marka</span>
-                
-            </div>
- 
-            <!-- İncelenen Marka -->
-            <div class="brand-card" id="brandRight">
-                <div class="img-placeholder" id="imgRightPlaceholder">🔍</div>
-                <img id="imgRight" src="images/MCDonalds.jpeg" alt="İncelenen Marka" style="display:none" />
-                <span class="brand-label" id="labelRight">İncelenen Marka</span>
-                
-            </div>
+
+    <div class="card" id="loginScreen">
+        <div class="logo-wrapper">
+            <img src="images/logo.png" alt="Lawducation Logo" class="logo-img" onerror="this.style.display='none'" />
         </div>
 
-        <div class="image-pair">
-            <!-- Tescilli Marka -->
-            <div class="brand-card" id="brandLeft">
-                <div class="img-placeholder" id="imgLeftPlaceholder">⚖️</div>
-                <img id="imgLeft" src="images/polo ralph lauren.jpeg" alt="Tescilli Marka" style="display:none" />
-                <span class="brand-label" id="labelLeft">Tescilli Marka</span>
-                <span class="brand-tag">Tescil Sahibi</span>
-            </div>
- 
-            <!-- İncelenen Marka -->
-            <div class="brand-card" id="brandRight">
-                <div class="img-placeholder" id="imgRightPlaceholder">🔍</div>
-                <img id="imgRight" src="images/poloclub.jpeg" alt="İncelenen Marka" style="display:none" />
-                <span class="brand-label" id="labelRight">İncelenen Marka</span>
-                <span class="brand-tag">İncelenen</span>
-            </div>
-        </div>
- 
-        <!-- Evet / Hayır Butonları -->
-        <div class="answer-buttons">
-            <button class="btn-answer btn-yes" id="btnYes" onclick="handleAnswer(true)">
-                ✓ Evet, Tecavüz Var
-            </button>
-            <button class="btn-answer btn-no" id="btnNo" onclick="handleAnswer(false)">
-                ✗ Hayır, Tecavüz Yok
-            </button>
-        </div>
- 
-        <!-- Geri Bildirim -->
-        <div class="feedback-band" id="feedbackBand">
-            <span class="fb-icon" id="fbIcon"></span>
-            <div class="fb-text">
-                <strong id="fbTitle"></strong>
-                <span id="fbDetail"></span>
-            </div>
-        </div>
- 
-        <!-- İleri Butonu -->
-        <button class="btn-next hidden" id="btnNext" onclick="nextQuestion()">
-            Sonraki Soru →
-        </button>
- 
-    </div><!-- /quizArea -->
- 
- 
-    <!-- ══════════════════════════════════════════════
-         SONUÇ EKRANI
-    ══════════════════════════════════════════════ -->
-    <div id="resultScreen" class="result-screen hidden">
-        <span id="result-icon">🎓</span>
-        <h2 id="resultTitle">Tebrikler!</h2>
-        <p class="score-line">Quiz tamamlandı. İşte sonucunuz:</p>
-        <div class="score-badge" id="scoreBadge">0 / 0</div>
- 
-        <div id="mistakesWrap" class="hidden">
-            <div class="mistakes-list" id="mistakesList">
-                <h3>Yanlış Yanıtlanan Sorular</h3>
-            </div>
-        </div>
- 
-        <button class="btn-restart" onclick="restartQuiz()">↺ Tekrar Dene</button>
+        <h1 class="title">Faz Ödevi: Marka Hakkına Tecavüz</h1>
+        <p class="subtitle">Testi başlatmak ve katılımınızı kaydetmek için adınızı giriniz.</p>
+
+        <input
+            type="text"
+            id="inputFullName"
+            class="name-input"
+            placeholder="Adınız Soyadınız"
+            autocomplete="off"
+            maxlength="80"
+        />
+
+        <p id="loginError" class="input-error hidden">Lütfen adınızı ve soyadınızı giriniz.</p>
+
+        <button class="start-btn" onclick="startQuiz()">Eğitime Başla</button>
     </div>
- 
-</div><!-- /container-box -->
- 
- 
-<!-- ══════════════════════════════════════════════
-     JAVASCRIPT — Soru Bankası & Mantık
-══════════════════════════════════════════════ -->
+
+    <div id="quizWrapper" class="hidden">
+
+        <div class="header">
+            <img src="images/logo.png" alt="Lawducation Logo" class="logo" onerror="this.style.display='none'" />
+            <h1>Marka Hakkına Tecavüz</h1>
+            <p id="userName" class="user-name-label"></p>
+        </div>
+
+        <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <p class="progress-label" id="progressLabel">Soru 1 / 2</p> 
+
+        <div id="quizArea" class="question-card">
+
+            <p class="question-title" id="questionTitle">
+                Aşağıdaki iki markadan incelenen marka <strong>tescillenebilir mi?</strong>
+            </p>
+
+            <div class="image-pair">
+                <div class="brand-card">
+                    <div class="img-placeholder" id="imgLeftPlaceholder">⚖️</div>
+                    <img id="imgLeft" src="" alt="Tescilli Marka" style="display:none" />
+                    <span class="brand-label" id="labelLeft">Tescilli Marka</span>
+                    <span class="brand-tag">Tescil Sahibi</span>
+                </div>
+
+                <div class="brand-card">
+                    <div class="img-placeholder" id="imgRightPlaceholder">🔍</div>
+                    <img id="imgRight" src="" alt="İncelenen Marka" style="display:none" />
+                    <span class="brand-label" id="labelRight">İncelenen Marka</span>
+                    <span class="brand-tag">İncelenen</span>
+                </div>
+            </div>
+
+            <div class="answer-buttons">
+                <button class="btn-answer btn-yes" id="btnYes" onclick="handleAnswer(true)">
+                    ✓ Evet, Tescillenebilir
+                </button>
+                <button class="btn-answer btn-no" id="btnNo" onclick="handleAnswer(false)">
+                    ✗ Hayır, Tescillenemez
+                </button>
+            </div>
+
+            <div class="feedback-band" id="feedbackBand">
+                <span class="fb-icon" id="fbIcon"></span>
+                <div class="fb-text">
+                    <strong id="fbTitle"></strong>
+                    <span id="fbDetail"></span>
+                </div>
+            </div>
+
+            <button class="btn-next hidden" id="btnNext" onclick="nextQuestion()">
+                Sonraki Soru →
+            </button>
+
+        </div>
+        
+        <div id="resultScreen" class="result-screen hidden">
+            
+            <h2 id="resultTitle">Eğitimi Tamamladınız!</h2>
+            <p class="global-msg" id="globalMsg"></p>
+            
+            <div class="submit-wrap">
+                <button class="save-btn" id="saveBtn">Kaydet</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
 <script>
-/*
- ┌─────────────────────────────────────────────────────────────┐
- │  SORU BANKASI                                               │
- │  Her nesne:                                                 │
- │    leftImg   → tescilli marka görseli (src)                 │
- │    rightImg  → incelenen marka görseli (src)                │
- │    leftLabel → sol marka adı                                │
- │    rightLabel→ sağ marka adı                                │
- │    answer    → true = tecavüz var, false = yok              │
- │    feedback  → açıklama metni                               │
- └─────────────────────────────────────────────────────────────┘
- NOT: Gerçek görseller eklendiğinde `leftImg` ve `rightImg`
-      alanlarına dosya yollarını veya URL'leri yazın.
-      Şu an placeholder emoji kullanılmaktadır.
-*/
+/* ── CONFIG ────────────────────────────────────────── */
+const API_URL = 'https://marka-patentdy.vercel.app/api/submit';
+
+/* ── SORU BANKASI ───────────────────────────────────────── */
 const QUESTIONS = [
     {
-        leftImg:    "images/polo ralph lauren.jpeg",   /* örn: "images/adidas-original.png" */
+        leftImg:    "images/polo ralph lauren.jpeg",
         rightImg:   "images/poloclub.jpeg",
-        answer:     true,
-        feedback:   "Bu durumda tecavüz vardır. İki marka arasındaki fonetik ve görsel benzerlik, karıştırılma ihtimalini doğurmaktadır (556 sayılı KHK m. 8/1-b)."
+        leftLabel:  "Polo Ralph Lauren",
+        rightLabel: "Polo Club",
+        answer:     false,
+        feedback:   "Hayır tescil edilemez. Çünkü yeni ibare, tekstil sektöründe dünya çapında yüksek tanınmışlığa sahip 'Polo Ralph Lauren' markasının esas unsuru olan 'POLO' kelimesini aynen barındırmaktadır. Bu durum, SMK m. 6/1 uyarınca hedef tüketici kitlesinde markaların ticari kökeni açısından doğrudan iltibasa (karıştırılma ihtimaline) yol açar."
     },
     {
         leftImg:    "images/Mc Döner.jpeg",
         rightImg:   "images/MCDonalds.jpeg",
+        leftLabel:  "Mc Döner",
+        rightLabel: "McDonald's",
         answer:     false,
-        feedback:   "Bu durumda tecavüz yoktur. Markalar farklı mal/hizmet sınıflarında tescillidir; karıştırılma ihtimali bulunmamaktadır."
+        feedback:   "Tescil edilemez Çünkü yeni logo ve 'Mc' ön eki, tanınmış McDonald's markasıyla tüketici nezdinde 'karıştırılma ihtimali' (nisbi ret sebebi) taşımaktadır. Tasarımdaki benzerlik, iki işletme arasında idari veya ekonomik bir bağ olduğu yanılgısını uyandıracak niteliktedir."
+    },
+        {
+        leftImg:    "images/starpreya.jpeg",
+        rightImg:   "images/starbucks.jpeg",
+        leftLabel:  "Starpreya",
+        rightLabel: "Starbucks",
+        answer:     false,
+        feedback:   "Tescil edilemez çünkü marka; dairesel halka geometrisi, yeşil-beyaz renk kombinasyonu ve merkezdeki figür yerleşimiyle tanınmış 'Starbucks' markasıyla iltibasa (karıştırılma ihtimaline) yol açacak derecede benzerdir. Bu tasarımsal benzerlik, SMK m. 6/1 kapsamında tüketici nezdinde iki işletme arasında ekonomik veya idari bir bağ olduğu yanılgısını doğurmaktadır."
+    },
+        {
+        leftImg:    "images/nutella.jpeg",
+        rightImg:   "images/cokoliva.jpeg",
+        leftLabel:  "nutella",
+        rightLabel: "Çokoliva",
+        answer:     true,
+        feedback:   "Tescil edilebilir. Çünkü markaların kelime unsurları (Nutella ve Çokoliva) tamamen farklıdır. Siyah ve kırmızı renk kombinasyonu ise gıda sektöründe iştah açıcı özelliği nedeniyle yaygın kullanılan genel bir tarz olduğundan, tek başına  iltibas yaratmaz ve tescile engel değildir."
+    },
+        {
+        leftImg:    "images/adidas.jpeg",
+        rightImg:   "images/abidas.jpeg",
+        leftLabel:  "Adidas",
+        rightLabel: "Abidas",
+        answer:     false,
+        feedback:   "Hayır, tescil edilemez. Çünkü logodaki üç eğik çizgi geometrisi ile 'Adidas' kelimesindeki harflerin yerini değiştirerek elde edilen fonetik (işitsel) benzerlik, markayı ayırt edilemez kılar ve haksız yarar sağlama amacı taşır."
+    },
+            {
+        leftImg:    "images/a101.jpeg",
+        rightImg:   "images/cakma101.jpeg",
+        leftLabel:  "A-101",
+        rightLabel: "Ç",
+        answer:     false,
+        feedback:   "Tescil edilemez. Çünkü başvuru, A-101'in tescilli sloganı 'ÇOK AL AZ ÖDE' ile bütünüyle benzerdir. Tasarımın standart harflerle değiştirilmesi iltibas riskini engellemez; tüketici nezdinde markaların aynı işletmeye ait olduğu (marka serisi) yanılgısını doğurur."
+    },
+                {
+        leftImg:    "images/sucukevi.jpeg  ",
+        rightImg:   "images/sucukkulubu.jpeg",
+        leftLabel:  "Sucukevi",
+        rightLabel: "Sucuk Kulübü",
+        answer:     true,
+        feedback:   "Evet, tescil edilebilir. Çünkü gıda sektöründe kullanılan 'sucuk' ibaresinin markasal ayırt ediciliği zayıftır. Başvurudaki 'Sucuk Kulübü' ile davacının 'Sucukevi' tamlamaları, ek kelimeler ve baskın şekil farkları nedeniyle bütünsel olarak ayrışmaktadır. Bu farklılık, markaların ilk bakışta ayırt edilebilmesini sağlayarak SMK m. 6/1 anlamında iltibas riskini engeller."
     },
 ];
- 
-/* ── Durum değişkenleri ────────────────────────────── */
+
+/* ── Durum değişkenleri ──────────────────────────────────── */
 let currentIndex = 0;
-let score        = 0;
 let answered     = false;
-const mistakes   = [];   /* { index, feedback } */
- 
-/* ── Sayfa yüklenince başlat ───────────────────────── */
-window.addEventListener('DOMContentLoaded', loadQuestion);
- 
-/* ── Soru Yükle ────────────────────────────────────── */
+let userNameStr  = ""; 
+
+/* ── DOM REFS ──────────────────────────────────────── */
+const saveBtn   = document.getElementById('saveBtn');
+const globalMsg = document.getElementById('globalMsg');
+
+/* ── GİRİŞ ──────────────────────────────────────────────── */
+function startQuiz() {
+    const fullName = document.getElementById('inputFullName').value.trim();
+    if (!fullName || fullName.split(' ').filter(Boolean).length < 2) {
+        document.getElementById('loginError').classList.remove('hidden');
+        return;
+    }
+    userNameStr = fullName;
+    document.getElementById('loginError').classList.add('hidden');
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('quizWrapper').classList.remove('hidden');
+    document.getElementById('userName').textContent = "Merhaba " + userNameStr;
+    loadQuestion();
+}
+
+/* Enter ile başlatma */
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('inputFullName').addEventListener('keydown', e => {
+        if (e.key === 'Enter') startQuiz();
+    });
+});
+
+/* ── Soru Yükle ─────────────────────────────────────────── */
 function loadQuestion() {
     answered = false;
     const q = QUESTIONS[currentIndex];
- 
+
     /* ilerleme */
     const pct = (currentIndex / QUESTIONS.length) * 100;
     document.getElementById('progressFill').style.width  = pct + '%';
-    document.getElementById('progressLabel').textContent =
-        `Soru ${currentIndex + 1} / ${QUESTIONS.length}`;
- 
+    document.getElementById('progressLabel').textContent = `Soru ${currentIndex + 1} / ${QUESTIONS.length}`;
+
     /* görseller */
-    setImage('imgLeft',  'imgLeftPlaceholder',  q.leftImg,  q.leftEmoji);
-    setImage('imgRight', 'imgRightPlaceholder', q.rightImg, q.rightEmoji);
- 
+    setImage('imgLeft',  'imgLeftPlaceholder',  q.leftImg,  '⚖️');
+    setImage('imgRight', 'imgRightPlaceholder', q.rightImg, '🔍');
+
     /* etiketler */
-    document.getElementById('labelLeft').textContent  = q.leftLabel;
-    document.getElementById('labelRight').textContent = q.rightLabel;
- 
+    document.getElementById('labelLeft').textContent  = q.leftLabel  || "Tescilli Marka";
+    document.getElementById('labelRight').textContent = q.rightLabel || "İncelenen Marka";
+
     /* butonları sıfırla */
     const btnY = document.getElementById('btnYes');
     const btnN = document.getElementById('btnNo');
@@ -189,12 +224,11 @@ function loadQuestion() {
     btnN.disabled = false;
     btnY.classList.remove('selected');
     btnN.classList.remove('selected');
- 
-    /* feedback & ileri gizle */
+
     hideFeedback();
     document.getElementById('btnNext').classList.add('hidden');
 }
- 
+
 function setImage(imgId, placeholderId, src, emoji) {
     const img = document.getElementById(imgId);
     const ph  = document.getElementById(placeholderId);
@@ -208,32 +242,29 @@ function setImage(imgId, placeholderId, src, emoji) {
         ph.textContent    = emoji;
     }
 }
- 
-/* ── Cevap İşle ────────────────────────────────────── */
+
+/* ── Cevap İşle ─────────────────────────────────────────── */
 function handleAnswer(userAnswer) {
     if (answered) return;
     answered = true;
- 
+
     const q       = QUESTIONS[currentIndex];
     const correct = (userAnswer === q.answer);
- 
-    /* buton seçim efekti */
+
     document.getElementById('btnYes').disabled = true;
     document.getElementById('btnNo').disabled  = true;
     document.getElementById(userAnswer ? 'btnYes' : 'btnNo').classList.add('selected');
- 
+
     if (correct) {
-        score++;
         showFeedback(true, 'Doğru!', q.feedback);
     } else {
-        mistakes.push({ index: currentIndex, feedback: q.feedback });
         showFeedback(false, 'Yanlış.', q.feedback);
     }
- 
+
     document.getElementById('btnNext').classList.remove('hidden');
 }
- 
-/* ── Geri Bildirim Göster ──────────────────────────── */
+
+/* ── Feedback ────────────────────────────────────────────── */
 function showFeedback(correct, title, detail) {
     const band = document.getElementById('feedbackBand');
     band.className = 'feedback-band show ' + (correct ? 'correct-fb' : 'wrong-fb');
@@ -241,18 +272,27 @@ function showFeedback(correct, title, detail) {
     document.getElementById('fbTitle').textContent  = title;
     document.getElementById('fbDetail').textContent = detail;
 }
- 
+
 function hideFeedback() {
     const band = document.getElementById('feedbackBand');
     band.className = 'feedback-band';
     band.classList.remove('show');
 }
- 
-/* ── Sonraki Soru ──────────────────────────────────── */
+
+/* ── Sonuç Ekranını Göster ───────────────────────────────── */
+function showResult() {
+    document.getElementById('quizArea').classList.add('hidden');
+    document.getElementById('progressLabel').textContent = "Tamamlandı!";
+    document.getElementById('progressFill').style.width = '100%';
+    
+    const resultScreen = document.getElementById('resultScreen');
+    resultScreen.classList.remove('hidden');
+}
+
+/* ── Sonraki Soru ────────────────────────────────────────── */
 function nextQuestion() {
     currentIndex++;
     if (currentIndex < QUESTIONS.length) {
-        /* Yeni soru animasyonu */
         const qa = document.getElementById('quizArea');
         qa.style.animation = 'none';
         void qa.offsetWidth;
@@ -262,64 +302,41 @@ function nextQuestion() {
         showResult();
     }
 }
- 
-/* ── Sonuç Ekranı ──────────────────────────────────── */
-function showResult() {
-    document.getElementById('quizArea').classList.add('hidden');
-    const rs = document.getElementById('resultScreen');
-    rs.classList.remove('hidden');
- 
-    /* ilerlemeyi %100 yap */
-    document.getElementById('progressFill').style.width  = '100%';
-    document.getElementById('progressLabel').textContent = 'Tamamlandı!';
- 
-    const total = QUESTIONS.length;
-    document.getElementById('scoreBadge').textContent = `${score} / ${total}`;
- 
-    /* İkon & başlık */
-    const pct = score / total;
-    let icon, title;
-    if (pct === 1)         { icon = '🏆'; title = 'Mükemmel!'; }
-    else if (pct >= 0.75)  { icon = '🎓'; title = 'Çok İyi!'; }
-    else if (pct >= 0.5)   { icon = '📚'; title = 'Gelişebilirsiniz'; }
-    else                   { icon = '⚖️'; title = 'Tekrar Çalışın'; }
-    document.getElementById('result-icon').textContent  = icon;
-    document.getElementById('resultTitle').textContent  = title;
- 
-    /* Yanlış listesi */
-    if (mistakes.length > 0) {
-        const wrap = document.getElementById('mistakesWrap');
-        wrap.classList.remove('hidden');
-        const list = document.getElementById('mistakesList');
-        mistakes.forEach(m => {
-            const q   = QUESTIONS[m.index];
-            const div = document.createElement('div');
-            div.className = 'mistake-item';
-            div.innerHTML = `
-                <div class="mi-q">Soru ${m.index + 1}: ${q.leftLabel} vs ${q.rightLabel}</div>
-                <div class="mi-fb">${m.feedback}</div>`;
-            list.appendChild(div);
+
+/* ── SUBMIT ────────────────────────────────────────── */
+saveBtn.addEventListener('click', async () => {
+    globalMsg.textContent = '';
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Kaydediliyor…';
+
+    const payload = {
+        isim_soyisim: userNameStr,
+        date: new Date().toISOString()   
+    };
+
+    try {
+        const res = await fetch('/api/submit', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(payload)
         });
+
+        if (!res.ok) throw new Error(`Sunucu hatası: ${res.status}`);
+
+        saveBtn.textContent = 'Kaydedildi ✓';
+        globalMsg.style.color = '#2ecc71';
+        globalMsg.textContent = 'Katılımınız başarıyla kaydedildi.';
+
+    } catch (err) {
+        console.error('Kayıt hatası:', err);
+        globalMsg.style.color = '#ff6b6b';
+        globalMsg.textContent = 'Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.';
+        saveBtn.disabled      = false;
+        saveBtn.textContent   = 'Kaydet';
     }
-}
- 
-/* ── Yeniden Başlat ────────────────────────────────── */
-function restartQuiz() {
-    currentIndex = 0;
-    score        = 0;
-    mistakes.length = 0;
- 
-    /* yanlış listesini temizle */
-    const list = document.getElementById('mistakesList');
-    while (list.children.length > 1) list.removeChild(list.lastChild);
-    document.getElementById('mistakesWrap').classList.add('hidden');
- 
-    document.getElementById('resultScreen').classList.add('hidden');
-    document.getElementById('quizArea').classList.remove('hidden');
-    loadQuestion();
-}
+});
+
 </script>
- 
+
 </body>
 </html>
- 
