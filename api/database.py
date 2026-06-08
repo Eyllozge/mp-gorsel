@@ -4,10 +4,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-neon_url = os.environ.get("NEON_URL") 
+DATABASE_URL = os.environ.get("Neon_DATABASE_URL") 
 
 try:
-    conn = psycopg2.connect(neon_url)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     print("Neon veritabanına başarıyla bağlanıldı!")
     
