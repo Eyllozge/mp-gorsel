@@ -1,10 +1,15 @@
 import os
-from supabase import create_client
+import psycopg2
 from dotenv import load_dotenv
 
 load_dotenv()
 
-supabase = create_client(
-    os.environ["NEON_URL"],
-    os.environ["NEON_KEY"]
-)
+neon_url = os.environ.get("NEON_URL") 
+
+try:
+    conn = psycopg2.connect(neon_url)
+    cursor = conn.cursor()
+    print("Neon veritabanına başarıyla bağlanıldı!")
+    
+except Exception as e:
+    print(f"Bağlantı hatası: {e}")
