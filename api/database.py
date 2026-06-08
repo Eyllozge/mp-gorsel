@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = os.environ.get("Neon_DATABASE_URL") 
+DATABASE_URL = os.environ.get("NEON_DATABASE_URL") 
 
 try:
     conn = psycopg2.connect(DATABASE_URL)
