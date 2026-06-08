@@ -2,8 +2,8 @@
   "framework": null,
   "rewrites": [
     {
-      "source": "/api/submit",
-      "destination": "/api/main.py"
+      "source": "/api/(.*)",
+      "destination": "/api/main"
     }
   ]
 }
